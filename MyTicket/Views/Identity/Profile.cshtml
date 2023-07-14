@@ -1,0 +1,48 @@
+﻿@using MyTicket.ViewModel;
+@model ProfileViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "My Profile";
+}
+<div class="container col-md-4 border mt-5 p-4 text-center">
+    <h2>Update Your Profile</h2>
+
+    <form asp-action="EditProfile">
+        @if (TempData["FullNameSucceeded"] != null)
+        {
+            <div class="border-dark bg-success">
+                <p class="text-light" style="font-size:16px">@TempData["FullNameSucceeded"]</p>
+            </div>
+        }
+        @if (TempData["PasswordSucceeded"] != null)
+        {
+            <div class="border-dark bg-success mt">
+                <p class="text-light" style="font-size:16px">@TempData["PasswordSucceeded"]</p>
+            </div>
+        }
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group mt-5">
+            <label asp-for="Email" class="control-lable float-left"></label>
+            <input asp-for="Email" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label asp-for="FullName" class="control-lable float-left">FullName:</label>
+            <input asp-for="FullName" class="form-control" placeholder="Type here...">
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-lable float-left">Password:</label>
+            <input asp-for="Password" class="form-control" placeholder="Type here...">
+        </div>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="control-lable float-left">Confirm Password:</label>
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="Type here...">
+        </div>
+        <div class="form-group mb-5">
+            <a asp-controller="Movie" asp-action="Index" class="btn btn-outline-primary float-left">Back To List</a>
+            <button type="submit" class="btn btn-success text-light float-right">Edit</button>
+        </div>
+    </form>
+</div>

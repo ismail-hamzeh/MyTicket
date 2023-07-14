@@ -1,0 +1,45 @@
+﻿@model Cinema
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Delete Cinema";
+}
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+
+        <h3 class="m-4">Are you sure you want delete @Model.Name?</h3>
+
+
+        <div class="form-group text-center mb-5">
+            <img src="@Model.Logo" class="border-info rounded-circle" style="max-width: 150px" id="LogoPreview" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.Logo" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.Name" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.Description" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id"/>
+                <a class="btn btn-outline-primary" asp-action="Index" value="Confirm">Back To List</a>
+                <input type="submit" class="btn btn-success float-right" asp-action="Delete">
+            </form>
+        </div>
+    </div>
+</div>

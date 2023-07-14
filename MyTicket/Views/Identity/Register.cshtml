@@ -1,0 +1,53 @@
+﻿@using MyTicket.ViewModel;
+@model RegisterViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container col-md-4 mt-5 border p-4" style="background-color: gainsboro;">
+    <h3>Register</h3>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
+
+    <form asp-action="Register">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group mt-5"
+            <label asp-for="FullName" class="control-lable"></label>
+            <input asp-for="FullName" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-lable"></label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password" class="control-lable"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="control-lable"></label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-5">
+            <p class="d-inline"> I Already have an account <a asp-action="Login" type="link" class="text-primary"> <u>Login</u> </a></p>
+            <input type="submit" class="btn btn-success text-white float-right" value="Submit">
+        </div>
+    </form>
+
+</div>

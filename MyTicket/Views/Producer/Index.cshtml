@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Producer>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "Producer Home";
+}
+
+<div class="container col-md-10">
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ProfilePictureUrl)</th>
+            <th>@Html.DisplayNameFor(model => model.FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.Bio)</th>
+        </tr>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="align-middle">
+                        <img src="@item.ProfilePictureUrl"
+                             class="rounded-circle" alt="@item.ProfilePictureUrl" style="width: 150px;">
+                    </td>
+                    <td class="align-middle">@item.FullName</td>
+                    <td class="align-middle">@item.Bio</td>
+                    <td class="align-middle">
+                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <a class="btn btn-success fixed-button" asp-action="Add"><i class="bi bi-plus-square"></i> Add New Producer</a>
+}
+
+

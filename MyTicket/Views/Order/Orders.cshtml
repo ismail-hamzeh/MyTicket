@@ -1,0 +1,43 @@
+﻿@model List<Orders>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Tilte"] = "Orders";
+}
+<div class="container col-md-9 mt-5 p-4 text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order items(Amount-Movie Price-Movie Name)</th>
+                <th>Total</th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th>User</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        @foreach (var orderItems in item.OrderItems)
+                        {
+                            <div class="m-3">
+                                <span class="bg-success text-light p-2">(@orderItems.Amount)  - @orderItems.Price.ToString("c") - @orderItems.Movie.Name</span>
+                            </div>
+                        }
+                    </td>
+                    <td>@item.OrderItems.Select(a => a.Price * a.Amount).Sum().ToString("c")</td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>@item.User.FullName</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

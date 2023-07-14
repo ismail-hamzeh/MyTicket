@@ -1,0 +1,51 @@
+﻿@using MyTicket.ViewModel;
+@model ShoppingCartViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container col-md-9 mt-5 p-4">
+    <h3>Shopping Cart</h3>
+
+    <table class="table mt-5">
+        <thead>
+            <tr class="text-center">
+                <th>Movie</th>
+                <th>Price</th>
+                <th>SubTotal</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (var item in Model.Cart.ShoppingCarts)
+                {
+                <tr class="text-center">
+                    <td>@item.Movie.Name</td>
+                    <td>@item.Movie.Price</td>
+                    <td>@((item.Amount * item.Movie.Price).ToString("c"))</td>
+                    <td>
+                        (@item.Amount)
+                        <a asp-controller="Order" asp-action="AddItemToCart" asp-route-id="@item.Movie.Id"><i class="bi bi-bag-plus text-success"></i></a>
+                        <a asp-controller="Order" asp-action="RemoveItemFromCart" asp-route-id="@item.Movie.Id"><i class="bi bi-bag-dash text-danger"></i></a>
+                    </td>
+                </tr>
+                }
+        </tbody>
+        <tfoot>
+            <tr class="text-center ">
+                <td colspan="1"></td>
+                <td><b>Total:</b></td>
+                <td>@Model.ShoppingCartTotal.ToString("c")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div>
+        
+        <a asp-action="Payment" class="btn btn-success float-right m-2">Payment</a>
+        <a asp-controller="Movie" asp-action="Index" class="btn btn-outline-primary float-right m-2">Add More Items</a>
+    </div>
+</div>

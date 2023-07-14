@@ -1,0 +1,41 @@
+﻿@using MyTicket.ViewModel;
+@model LoginViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container col-md-4 mt-5 border p-4" style="background-color: gainsboro;">
+    <h3>Login</h3>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
+
+    <form asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group mt-5">
+            <label asp-for="Email" class="control-lable"></label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password" class="control-lable"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Type here...">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-5">
+            <p class="d-inline">I dont have an account! <a asp-action="Register" type="link" class="text-primary"><u>Register</u></a></p>
+            <input type="submit" class="btn btn-success text-white float-right" value="Login">
+        </div>
+    </form>
+
+</div>

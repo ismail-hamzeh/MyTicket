@@ -1,0 +1,53 @@
+﻿@model Movie
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Moview Details";
+}
+
+<div class="container" style="background-color: rgb(221, 212, 87);">
+    <div class="column" style="background-color: rgb(221, 212, 87);">
+
+        <div class="pb-5 pr-3 pl-3">
+            <div class="row">
+                <div class="ml-4 mt-3">
+                    <img style="height: 350px;" src="@Model.ImageUrl">
+                </div>
+
+                <div class="col-md-6" style="margin-top: -5px;">
+                    <div class="card-body">
+                        <h3 class="card-title">@Model.Name</h3>
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text"><b>Cinema: </b> @Model.Cinema.Name</p>
+                        <p class="card-text"><b>Producer: </b> <a asp-controller="Producer" asp-action="Details" asp-route-id="@Model.ProducerId">@Model.Producer.FullName</a></p>
+                        <p class="card-text"><b>Category: </b> @Model.MovieCategory</p>
+                        <p class="card-text"><b>Start Date: </b> @Model.StartDate.ToString("dd MM yyyy")</p>
+                        <p class="card-text"><b>End Date: </b> @Model.EndDate.ToString("dd MM yyyy")</p>
+                        <p class="card-text"><b>Actors: </b></p>
+                        <div class="row">
+                            @foreach (var actor in Model.Actor_Movies) { 
+                            <div class="column text-center mr-3">
+                                <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureUrl"
+                                     style="width: 120px" />
+                                <br/>
+                                <a asp-controller="Actor" asp-action="Details" asp-route-id="@actor.ActorId">@actor.Actor.FullName</a>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer pl-5 pr-5">
+                <a asp-controller="Order" asp-action="AddItemToCart" asp-route-id="@Model.Id" class="btn btn-success float-right"><i class="bi bi-cart-plus"></i> Add To Cart (@Model.Price.ToString("c"))</a>
+                <a class="btn btn-outline-primary float-left" asp-controller="Movie" asp-action="Index">
+                    <i class="bi bi-house"></i> Back To List
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

@@ -1,0 +1,45 @@
+﻿@model Actor
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Actor Details";
+}
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+
+        <h3 class="m-4">Details for @Model.FullName</h3>
+
+
+        <div class="form-group text-center mb-5">
+            <img src="@Model.ProfilePictureUrl" class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.ProfilePictureUrl" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.FullName" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-lable"></label>
+            <input class="form-control" value="@Model.Bio" readonly>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <a class="btn btn-outline-primary" asp-controller="Movie" asp-action="Index">Back To List</a>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <a class="btn btn-success float-right" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="text-center align-items-xxl-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="pb-5 pr-3 pl-3 m-4" style="background-color: rgb(221, 212, 87); width:500px">
+                <div class="row">
+                    <div class="ml-4 mt-3">
+                        <img style="height: 250px;" src="@item.ImageUrl">
+                    </div>
+
+                    <div class="col-md-6" style="margin-top: -5px;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text"><b>Cinema: </b> @item.Cinema.Name</p>
+                            <p class="card-text"><b>Category: </b> @item.MovieCategory</p>
+                            <p class="card-text"><b>Start Date: </b> @item.StartDate.ToString("dd MM yyyy")</p>
+                            <p class="card-text"><b>End Date: </b> @item.EndDate.ToString("dd MM yyyy")</p>
+                            @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                            {
+                                <span class="badge bg-success text-white">AVAILABLE</span>
+                            }
+                            else if (DateTime.Now > item.EndDate)
+                            {
+                                <span class="badge bg-danger text-white">EXPIRED</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info text-white">UPCOMING</span>
+                            }
+                        </div>
+                    </div>
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a class="text-white float-right mt-2" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square" style="font-size:24px; color:forestgreen"></i></a>
+                    }
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Order" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-success float-left"><i class="bi bi-cart-plus"></i> Add To Cart (Price @item.Price.ToString("c"))</a>
+                    <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye-fill"></i> Show Details</a>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <a class="btn btn-success fixed-button" asp-action="Add"><i class="bi bi-plus-square"></i> Add New Movie</a>
+}
